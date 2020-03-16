@@ -34,5 +34,6 @@ public class TOHSteps {
 	public void navigate_to_URL(String url) throws Throwable {
 		driver.get(url);
 		Thread.sleep(10000);
+		WebDriverFactory.clearDriver();
 	}
 }
