@@ -32,30 +32,7 @@ public class TestUtils {
 	public static final int HALF_SECOND_IN_MS = ONE_SECOND_IN_MS / 2;
 	public static final int TYPE_AHEAD_SEARCH_DELAY_IN_MS = ONE_SECOND_IN_MS;  // TYPE_AHEAD_SEARCH_DELAY For Rule Filter Search tests, in milliseconds
 	
-	private static final int MAX_UI_TIMEOUT_IN_SEC = 20;
-	
-	//Dashboard UI # of successful logins
-	private static int NUMBER_OF_SUCCESSFUL_LOGINS;
-
-    public static int getSuccessfulLogins(){
-        return NUMBER_OF_SUCCESSFUL_LOGINS;
-    }
-    public static void setSuccessfulLogins(int updatedSucessfulLogins){
-    	NUMBER_OF_SUCCESSFUL_LOGINS = updatedSucessfulLogins;
-    }
-    //Dashboard UI # of successful logins
-    
-    //Dashboard UI # of failed logins
-  	private static int NUMBER_OF_FAILED_LOGINS;
-
-      public static int getFailedLogins(){
-          return NUMBER_OF_FAILED_LOGINS;
-      }
-      public static void setFailedLogins(int updatedFailedLogins){
-    	  NUMBER_OF_FAILED_LOGINS = updatedFailedLogins;
-      }
-      //Dashboard UI # of failed logins
-      
+	private static final int MAX_UI_TIMEOUT_IN_SEC = 20;      
       
 	/**
 	 * Gets the current active @WebDriver. Use this method to get the active driver from
@@ -183,15 +160,6 @@ public class TestUtils {
 			String expectedText, int timeToWaitInSeconds) throws Throwable {
 		for (int second = 0;; second++) {
 			try {
-				String browserName = TestSetup.getGridBrowserName();
-					if (browserName.equals("MicrosoftEdge")){
-						String TxtWithSpaces = webElement.getText();
-						System.out.println("WebElement "+TxtWithSpaces+" = "+"["+ TxtWithSpaces+"]");
-						String TxtWithNoSpaces = TxtWithSpaces.trim();
-						System.out.println("WebElement "+TxtWithSpaces+" = "+"["+TxtWithNoSpaces+"]");
-						assert expectedText.equals(TxtWithNoSpaces);
-						break;
-					}
 				assertEquals(expectedText,
 						webElement.getText());
 				break;
@@ -591,15 +559,7 @@ public class TestUtils {
 	public static void cssTextAppearsWithin(String expectedText,
 			String cssSelector, int timeToWaitInSeconds) throws Throwable {
 		for (int second = 0;; second++) {
-			try {String browserName = TestSetup.getGridBrowserName();
-			if (browserName.equals("MicrosoftEdge")){
-				String TxtWithSpaces = getDriver().findElement(By.cssSelector(cssSelector)).getText();
-				System.out.println("WebElement "+TxtWithSpaces+" = "+"["+ TxtWithSpaces+"]");
-				String TxtWithNoSpaces = TxtWithSpaces.trim();
-				System.out.println("WebElement "+TxtWithSpaces+" = "+"["+TxtWithNoSpaces+"]");
-				assert expectedText.equals(TxtWithNoSpaces);
-				break;
-			}
+			try {
 				assertEquals(expectedText,
 						getDriver().findElement(By.cssSelector(cssSelector))
 								.getText());

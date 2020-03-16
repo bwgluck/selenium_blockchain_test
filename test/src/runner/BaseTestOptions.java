@@ -5,7 +5,7 @@ import cucumber.api.CucumberOptions;
 @CucumberOptions(
 	monochrome = true,
 	features = { "classpath:./" },
-	glue = { "com.ibm.security.ux.bdd.steps" })
+	glue = { "steps" })
 public abstract class BaseTestOptions {
 
 }
