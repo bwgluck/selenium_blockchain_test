@@ -28,5 +28,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 
 public class TOHSteps {
-
+	private WebDriver driver = WebDriverFactory.getDriver();
+	
+	@Given("^I navigate to the URL \"(.*?)\"$")
+	public void navigate_to_URL(String url) throws Throwable {
+		driver.get(url);
+		Thread.sleep(10000);
+	}
 }

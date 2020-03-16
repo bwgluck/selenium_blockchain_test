@@ -3,7 +3,6 @@ package utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.text.DateFormat;
@@ -22,7 +21,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class TestUtils {
+public class TestUtils {	
 
 	public static final String PATH_SEPERATOR = "/";
 	public static final String EASTERN_TIMEZONE = "US/Eastern";
@@ -253,38 +252,7 @@ public class TestUtils {
 			}
 			Thread.sleep(ONE_SECOND_IN_MS);
 		}
-	}
-	
-	/**
-     * Loop to check for certain text appears within an element using
-     * it's id within the specified time
-	 * @param id
-     *            The id for the element.
-	 * @param containingText
-     *            The expected text to check if it exists.
-	 * @param timeToWaitInSeconds
-     *            The time to wait for the element to appear in seconds.
-     *
-     * @throws Throwable
-     *             Throws the error that the test case fails with.
-     */
-    public static void assertIdTextContains(String id,
-            String containingText, int timeToWaitInSeconds) throws Throwable {
-        for (int second = 0;; second++) {
-        	try {
-            	assertThat(getDriver().findElement(By.id(id))
-                        .getText(), org.hamcrest.CoreMatchers.containsString(containingText));
-            	        
-                break;
-            } catch (Error error) {
-                if (second >= timeToWaitInSeconds)
-                    fail("timeout after " + second + " second(s): "
-                            + error.getMessage());
-            }
-            Thread.sleep(ONE_SECOND_IN_MS);
-        }
-    }
-    
+	}    
     
     public static void assertElementIdNotAppearsWithin(String id)
 			throws Throwable {
@@ -692,108 +660,6 @@ public class TestUtils {
 		} else {
 			return 1;
 		}
-	}
-	
-	/**
-	 * Determine if the list of dates given is sorted based on the sort order given.
-	 * @param dates An array of @WebElement that hold all the dates
-	 * @param order The sort order to check the elements against, should be ascend or descend
-	 * @return true if the elements are sorted or too short to be sorted (one element or less), false otherwise
-	 */
-	public static boolean areDatesSorted(List <WebElement> dates , String order){
-		String first, second = null;
-		int count = dates.size();
-  	  
-		if(count == 1)
-			return true;
-  			   
-		for (int i = 1; i < count; i++) {
-			WebElement element1 = dates.get (i - 1);
-			String id1 = element1.getAttribute("id");
-			WebElement element2 = dates.get(i);
-			String id2 = element2.getAttribute("id");
-  			
-			if (id2.endsWith("-date") && id1.endsWith("-date")) {
-				first = element1.getText();
-				second = element2.getText();
-
-				DateFormat dateFormat = DateFormat
-					.getDateInstance(DateFormat.LONG);
-			
-				try {
-					Date date1 = dateFormat.parse(first);
-					Date date2 = dateFormat.parse(second);
-	        	
-					//If the element is not visible, page down
-					Actions actions = new Actions(getDriver());  
-					if(!ExpectedConditions.visibilityOf(element1).equals(element1)){
-						actions.sendKeys(Keys.PAGE_DOWN).perform();
-					}
-  		
-					if (order.equalsIgnoreCase("descend")){
-						if (date1.before(date2)) {
-							return false;
-						}
-					} else if (order.equalsIgnoreCase("ascend")){	        		
-						if (date1.after(date2)) {
-							return false;
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					return false;
-				}
-			} else
-				return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Determine if the list of users given is sorted based on the sort order given.
-	 * @param users An array of @WebElement that hold all the users
-	 * @param order The sort order to check the elements against, should be ascend or descend
-	 * @return true if the elements are sorted or too short to be sorted (one element or less), false otherwise
-	 */
-	public static boolean areUsersSorted(List <WebElement> users , String order){
-		String first, second = null;
-		WebElement element1, element2 = null;
-		String id1, id2 = null;
-  		
-		int count =  users.size();
-		if (count == 1)
-			return true;
-
-		Actions actions = new Actions(getDriver());
-		for (int i=1; i < count; i++) {
-			element2 = users.get(i);
-			element1 = users.get(i-1);
-			
-			id2 = element2.getAttribute("id");
-			id1 =  element1.getAttribute("id");
-			
-			if (id2.endsWith("-changed_by") && id1.endsWith("-changed_by")) {
-				//If the element is not visible, page down
-				if(!ExpectedConditions.visibilityOf(element1).equals(element1)){
-					actions.sendKeys(Keys.PAGE_DOWN).perform();
-				}
-				
-				first = element1.getText();
-				second = element2.getText();
-				
-				if (order.equalsIgnoreCase("descend")) {
-					if (first.compareTo(second) < 0) {
-						return false;
-					}
-				} else if (order.equalsIgnoreCase("ascend")) {
-					if (first.compareTo(second) > 0) {
-						return false;
-					}
-				}
-			} else
-				return false;
-			}
-		return true;
 	}
 	
 	/**
