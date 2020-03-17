@@ -32,7 +32,7 @@ public class TestUtils {
 	public static final int HALF_SECOND_IN_MS = ONE_SECOND_IN_MS / 2;
 	public static final int TYPE_AHEAD_SEARCH_DELAY_IN_MS = ONE_SECOND_IN_MS;  // TYPE_AHEAD_SEARCH_DELAY For Rule Filter Search tests, in milliseconds
 	
-	private static final int MAX_UI_TIMEOUT_IN_SEC = 20;      
+	private static final int MAX_UI_TIMEOUT_IN_SEC = 12;      
       
 	/**
 	 * Gets the current active @WebDriver. Use this method to get the active driver from

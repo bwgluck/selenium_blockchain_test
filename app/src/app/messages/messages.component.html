@@ -3,6 +3,6 @@
   <h2 id="messages-header">Messages</h2>
   <button id="clear-messages-btn" class="clear"
           (click)="messageService.clear()">clear</button>
-  <div *ngFor='let message of messageService.messages' id="message-entry-{{message}}"> {{message}} </div>
+  <div *ngFor='let message of messageService.messages; index as i;' id="message-entry-{{i}}"> {{message}} </div>
 
 </div>
