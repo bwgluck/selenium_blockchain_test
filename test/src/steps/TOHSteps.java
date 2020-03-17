@@ -34,6 +34,10 @@ public class TOHSteps {
 	public void navigate_to_URL(String url) throws Throwable {
 		driver.get(url);
 		Thread.sleep(10000);
+	}
+	
+	@Then("^I close the browser")
+	public void close_the_browser() throws Throwable {
 		WebDriverFactory.clearDriver();
 	}
 }
