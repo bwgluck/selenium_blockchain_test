@@ -1,3 +1,4 @@
+@bg @TOHFeature 
 Feature: TOH test showcase 
 
 Scenario: [1] Observe the Tour of Heroes dashboard 
@@ -20,18 +21,28 @@ Scenario: [2] Check functionality of hero details page
 	Then I see this hero name in top heroes: "Bombastone" 
 	Then I close the browser 
 	
-@bgdebug 
 Scenario: [3] Check functionality of hero search 
 	Given I navigate to the URL "localhost:4200" 
-	Then I see the hero search section
-	Then I search for hero name "Celeritas" and click on the result
-	Then I view the details for "Celeritas"
+	Then I see the hero search section 
+	Then I search for hero name "Celeritas" and click on the result 
+	Then I view the details for "Celeritas" 
 	Then I close the browser 
 	
+@bgdebug 
 Scenario: [4] Check functionality of my heroes page 
 	Given I navigate to the URL "localhost:4200" 
+	Then I see the TOH page navigation 
+	Then I click on the my heroes navigation button 
+	Then I see my heroes elements 
+	Then I add hero "Etrigan" to the heroes list 
+	Then I see "Etrigan" in the heroes list and click the entry
+	Then I view the details for "Etrigan" 
+	Then I go back to my heroes from hero details page 
+	Then I see my heroes elements 
+	Then I delete "Etrigan" from the heroes list 
+	Then I do not see "Etrigan" in the heroes list
 	Then I close the browser 
 	
-Scenario: [5] Check functionality of message history component 
-	Given I navigate to the URL "localhost:4200" 
-	Then I close the browser 
+	Scenario: [5] Check functionality of message history component 
+	Given  I navigate to the URL "localhost:4200" 
+	Then  I close the browser 
