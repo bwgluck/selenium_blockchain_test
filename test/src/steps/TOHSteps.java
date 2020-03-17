@@ -87,7 +87,7 @@ public class TOHSteps {
 	public void I_click_and_view_top_hero_details(String hero) throws Throwable {		
 		TestUtils.cssElementAppearsWithin("#" + hero + "-grid-tile", TestUtils.getMaxTimeOutValue());
 		driver.findElement(By.cssSelector("#" + hero + "-grid-tile")).click();
-		
+		TestUtils.cssElementAppearsWithin("#" + hero + "-details-header", TestUtils.getMaxTimeOutValue());
 		TestUtils.assertElementAppears(tohContainer.HeroDetailComponent);
 		TestUtils.assertElementAppears(tohContainer.DetailsBackBtn);
 		TestUtils.assertElementAppears(tohContainer.DetailsSaveBtn);
@@ -112,5 +112,23 @@ public class TOHSteps {
 	@Then("^I see this hero name in top heroes: \"(.*?)\"$")
 	public void I_see_hero_name_in_top_heroes(String hero) throws Throwable {		
 		TestUtils.cssElementAppearsWithin("#" + hero + "-grid-tile", TestUtils.getMaxTimeOutValue());
+	}
+	
+	@Then("^I search for hero name \"(.*?)\" and click on the result$")
+	public void I_search_hero_name(String heroName) throws Throwable {		
+		TestUtils.assertElementAppears(tohContainer.SearchBox);
+		TestUtils.verifiedSendKeys(tohContainer.SearchBox, heroName);
+		Thread.sleep(1000);
+		TestUtils.assertElementAppears(tohContainer.SearchResult);
+		TestUtils.cssElementAppearsWithin("#" + heroName + "-search-link", TestUtils.getMaxTimeOutValue());
+		driver.findElement(By.cssSelector("#" + heroName + "-search-link")).click();
+	}
+	
+	@Then("^I view the details for \"(.*?)\"$")
+	public void I_view_details(String hero) throws Throwable {		
+		TestUtils.cssElementAppearsWithin("#" + hero + "-details-header", TestUtils.getMaxTimeOutValue());
+		TestUtils.assertElementAppears(tohContainer.HeroDetailComponent);
+		TestUtils.assertElementAppears(tohContainer.DetailsBackBtn);
+		TestUtils.assertElementAppears(tohContainer.DetailsSaveBtn);
 	}
 }
