@@ -5,17 +5,25 @@ import static org.junit.Assert.fail;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.Robot;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import containers.TOHContainer;
@@ -29,6 +37,7 @@ import cucumber.api.java.en.Then;
 
 public class TOHSteps {
 	private WebDriver driver = WebDriverFactory.getDriver();
+	private TOHContainer tohContainer = new TOHContainer();
 	
 	@Given("^I navigate to the URL \"(.*?)\"$")
 	public void navigate_to_URL(String url) throws Throwable {
@@ -39,5 +48,37 @@ public class TOHSteps {
 	@Then("^I close the browser")
 	public void close_the_browser() throws Throwable {
 		WebDriverFactory.clearDriver();
+	}
+	
+	@Then("^I see the TOH page title header$")
+	public void I_see_page_title_header() throws Throwable {
+		TestUtils.assertElementAppears(tohContainer.TOHPageTitleHeader);
+	}
+	
+	@Then("^I see the TOH page navigation$")
+	public void I_see_page_nav() throws Throwable {
+		TestUtils.assertElementAppears(tohContainer.TOHNav);
+		TestUtils.assertElementAppears(tohContainer.TOHNavDashboardBtn);
+		TestUtils.assertElementAppears(tohContainer.TOHNavHeroesBtn);
+	}
+	
+	@Then("^I see the top heroes section$")
+	public void I_see_the_top_heroes_section() throws Throwable {
+		TestUtils.assertElementAppears(tohContainer.TopHeroesHeader);
+		TestUtils.assertElementAppears(tohContainer.GridPad);
+	}
+	
+	@Then("^I see the hero search section$")
+	public void I_see_the_hero_search_section() throws Throwable {
+		TestUtils.assertElementAppears(tohContainer.SearchComponent);
+		TestUtils.assertElementAppears(tohContainer.HeroSearchHeader);
+		TestUtils.assertElementAppears(tohContainer.SearchBox);
+	}
+	
+	@Then("^I see the message history section$")
+	public void I_see_the_message_history_section() throws Throwable {
+		TestUtils.assertElementAppears(tohContainer.MessagesDiv);
+		TestUtils.assertElementAppears(tohContainer.MessagesHeader);
+		TestUtils.assertElementAppears(tohContainer.ClearMessagesBtn);
 	}
 }
