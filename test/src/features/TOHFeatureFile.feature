@@ -1,17 +1,17 @@
 @bg @TOHFeature 
 Feature: TOH test showcase 
 
-Scenario: [1] Observe the Tour of Heroes dashboard 
-	Given I navigate to the URL "localhost:4200" 
-	Then I see the TOH page title header 
-	Then I see the TOH page navigation 
-	Then I see the top heroes section 
-	Then I see the hero search section 
-	Then I see the message history section 
-	Then I see message entry "0" with text "HeroService: fetched heroes" 
-	Then I close the browser 
+  Scenario: [1] Observe the Tour of Heroes dashboard
+    Given I navigate to the URL "localhost:4200"
+    Then I see the TOH page title header
+    Then I see the TOH page navigation
+    Then I see the top heroes section
+    Then I see the hero search section
+    Then I see the message history section
+    Then I see message entry "0" with text "HeroService: fetched heroes"
+    Then I close the browser
 	
-Scenario: [2] Check functionality of hero details page 
+  Scenario: [2] Check functionality of hero details page 
 	Given I navigate to the URL "localhost:4200" 
 	Then I clear the message history and verify it has been erased 
 	Then I click and view the details for top hero "Narco" 
@@ -20,14 +20,14 @@ Scenario: [2] Check functionality of hero details page
 	Then I see the top heroes section 
 	Then I click and view the details for top hero "Bombasto" 
 	Then I clear the message history and verify it has been erased 
-	Then I edit hero name and save as "Bombastone" 
-	Then I see the top heroes section 
+	Then I edit hero name and save as "Bombastone"
+    Then I see the top heroes section 
 	Then I see this hero name in top heroes: "Bombastone" 
 	Then I see message entry "0" with text "HeroService: updated hero id=13" 
 	Then I close the browser 
 	
-Scenario: [3] Check functionality of hero search 
-	Given I navigate to the URL "localhost:4200" 
+  Scenario: [3] Check functionality of hero search 
+    Given I navigate to the URL "localhost:4200" 
 	Then I see the hero search section 
 	Then I search for hero name "Narf" 
 	Then I see message entry "1" with text "HeroService: no heroes matching 'Narf'" 
@@ -38,7 +38,7 @@ Scenario: [3] Check functionality of hero search
 	Then I see message entry "1" with text "HeroService: fetched hero id=14" 
 	Then I close the browser 
 	
-Scenario: [4] Check functionality of my heroes page 
+  Scenario: [4] Check functionality of my heroes page 
 	Given I navigate to the URL "localhost:4200" 
 	Then I clear the message history and verify it has been erased 
 	Then I see the TOH page navigation 
