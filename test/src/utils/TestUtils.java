@@ -3,6 +3,7 @@ package utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 import java.text.DateFormat;
@@ -31,7 +32,7 @@ public class TestUtils {
 	public static final int HALF_SECOND_IN_MS = ONE_SECOND_IN_MS / 2;
 	public static final int TYPE_AHEAD_SEARCH_DELAY_IN_MS = ONE_SECOND_IN_MS;  // TYPE_AHEAD_SEARCH_DELAY For Rule Filter Search tests, in milliseconds
 	
-	private static final int MAX_UI_TIMEOUT_IN_SEC = 20;      
+	private static final int MAX_UI_TIMEOUT_IN_SEC = 12;      
       
 	/**
 	 * Gets the current active @WebDriver. Use this method to get the active driver from
@@ -223,6 +224,36 @@ public class TestUtils {
 	public static void assertTextAppearsWithin(String id, String expectedText) throws Throwable {
 		assertTextAppearsWithin (id, expectedText, getMaxTimeOutValue());
 	}
+	
+	/**
+     * Loop to check for certain text appears within an element using
+     * it's id within the specified time
+	 * @param id
+     *            The id for the element.
+	 * @param containingText
+     *            The expected text to check if it exists.
+	 * @param timeToWaitInSeconds
+     *            The time to wait for the element to appear in seconds.
+     *
+     * @throws Throwable
+     *             Throws the error that the test case fails with.
+     */
+    public static void assertIdTextContains(String id,
+            String containingText, int timeToWaitInSeconds) throws Throwable {
+        for (int second = 0;; second++) {
+        	try {
+            	assertThat(getDriver().findElement(By.id(id))
+                        .getText(), org.hamcrest.CoreMatchers.containsString(containingText));
+            	        
+                break;
+            } catch (Error error) {
+                if (second >= timeToWaitInSeconds)
+                    fail("timeout after " + second + " second(s): "
+                            + error.getMessage());
+            }
+            Thread.sleep(ONE_SECOND_IN_MS);
+        }
+    }
 
 	/**
 	 * Assert the expected text has been found in the element using it's ID until the specified timeout occurs.
