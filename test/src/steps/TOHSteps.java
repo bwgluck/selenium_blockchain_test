@@ -114,8 +114,15 @@ public class TOHSteps {
 		TestUtils.cssElementAppearsWithin("#" + hero + "-grid-tile", TestUtils.getMaxTimeOutValue());
 	}
 	
-	@Then("^I search for hero name \"(.*?)\" and click on the result$")
+	@Then("^I search for hero name \"(.*?)\"$")
 	public void I_search_hero_name(String heroName) throws Throwable {		
+		TestUtils.assertElementAppears(tohContainer.SearchBox);
+		TestUtils.verifiedSendKeys(tohContainer.SearchBox, heroName);
+		Thread.sleep(1000);
+	}
+	
+	@Then("^I search for hero name \"(.*?)\" and click on the result$")
+	public void I_search_hero_name_and_click(String heroName) throws Throwable {		
 		TestUtils.assertElementAppears(tohContainer.SearchBox);
 		TestUtils.verifiedSendKeys(tohContainer.SearchBox, heroName);
 		Thread.sleep(1000);
@@ -136,6 +143,7 @@ public class TOHSteps {
 	public void I_click_my_heroes_nav_btn() throws Throwable {
 		TestUtils.assertElementAppears(tohContainer.TOHNavHeroesBtn);
 		tohContainer.TOHNavHeroesBtn.click();
+		Thread.sleep(1000);
 	}
 	
 	@Then("^I see my heroes elements")
@@ -183,5 +191,19 @@ public class TOHSteps {
 	@Then("^I do not see \"(.*?)\" in the heroes list$")
 	public void I_do_not_see_hero(String heroName) throws Throwable {		
 		TestUtils.cssassertElementNotAppearsWithin("#" + heroName + "-hero-list-item", TestUtils.getMaxTimeOutValue());
+	}
+	
+	@Then("^I see message entry \"(.*?)\" with text \"(.*?)\"$")
+	public void I_see_message_entry(String num,String message) throws Throwable {		
+		TestUtils.cssTextAppearsWithin(message, "#message-entry-" + num,
+				TestUtils.getMaxTimeOutValue());
+	}
+	
+	@Then("^I clear the message history and verify it has been erased")
+	public void clear_message_history() throws Throwable {
+		TestUtils.assertElementAppears(tohContainer.ClearMessagesBtn);
+		tohContainer.ClearMessagesBtn.click();
+		Thread.sleep(1000);
+		TestUtils.cssassertElementNotAppearsWithin("messages-div", TestUtils.getMaxTimeOutValue());
 	}
 }
